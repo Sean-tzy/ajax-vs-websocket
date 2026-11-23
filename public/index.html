@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AJAX Polling vs WebSockets — Live Classroom Demo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div class="eyebrow">INTERACTIVE COMPUTER SCIENCE LAB <span class="spark">✦</span> NO CODING REQUIRED TO DEMO</div>
+    <h1>Two ways computers <em>talk.</em></h1>
+    <p>Watch what happens when a teacher sends a new announcement. One browser keeps asking. The other stays connected.</p>
+  </header>
+  <section class="teacher" aria-labelledby="teacherTitle">
+    <div class="teacher-copy"><div class="teacher-icon">📣</div><div><h2 id="teacherTitle">Teacher's announcement board</h2><p>Send one message. Both methods must get it — but how?</p></div></div>
+    <form id="announceForm"><label class="sr" for="announcement">Announcement</label><input id="announcement" maxlength="160" value="Recess starts now! 🎉" required><button type="submit" id="announceButton">Send update <span aria-hidden="true">↗</span></button></form>
+    <div class="hint">Try sending a message immediately <strong>after</strong> the polling browser checks.</div>
+  </section>
+  <section class="controls" aria-label="Demo settings"><div><strong>Polling interval</strong><small>How often should the left browser ask?</small></div><div class="slider-wrap"><input type="range" id="interval" min="1" max="10" value="5"><output for="interval" id="intervalLabel">5 seconds</output></div><button class="ghost" id="resetCounters" type="button">Reset display counters</button></section>
+  <section class="panels">
+    <article class="panel polling" aria-labelledby="pollTitle"><div class="panel-head"><div><span class="method-tag">METHOD 01</span><h2 id="pollTitle">🔁 AJAX Polling</h2><p>“Any news? … Any news? … Any news?”</p></div><div class="state-pill" id="pollState">● Checking repeatedly</div></div>
+      <div class="scene" aria-label="Polling communication diagram"><div class="character"><span class="char-emoji">💻</span><strong>Browser</strong><small>(student)</small></div><div class="lane"><div class="arrow right" id="pollRequest">REQUEST →</div><div class="arrow left" id="pollResponse">← RESPONSE</div></div><div class="character"><span class="char-emoji">🗄️</span><strong>Server</strong><small>(teacher's board)</small></div></div>
+      <div class="explain"><strong id="pollHeadline">Waiting for next check…</strong><p id="pollExplanation">The browser asks every 5 seconds, even when there is no new announcement.</p></div>
+      <div class="message" id="pollMessage" aria-live="polite"><span>Latest received message</span><strong>Waiting for an update…</strong></div>
+      <div class="metrics"><div><strong id="pollCount">0</strong><span>HTTP requests</span></div><div><strong id="pollNewCount">0</strong><span>New updates received</span></div><div><strong id="pollDelay">—</strong><span>Last delivery delay</span></div></div>
+      <div class="events"><div class="events-title">📋 What's happening? <span>live activity</span></div><ol id="pollEvents" aria-live="polite"></ol></div>
+      <div class="analogy">🚪 <strong>Like knocking on a door:</strong> you ask again and again until there's news.</div>
+    </article>
+    <article class="panel sockets" aria-labelledby="socketTitle"><div class="panel-head"><div><span class="method-tag">METHOD 02</span><h2 id="socketTitle">⚡ WebSockets</h2><p>“We are connected. Just tell me when!”</p></div><div class="state-pill" id="wsState">● Connecting…</div></div>
+      <div class="scene" aria-label="WebSocket communication diagram"><div class="character"><span class="char-emoji">💻</span><strong>Browser</strong><small>(student)</small></div><div class="lane socket-lane"><div class="tunnel" id="wsTunnel"><div class="tunnel-arrows">⇄</div><span>OPEN CONNECTION</span></div></div><div class="character"><span class="char-emoji">🗄️</span><strong>Server</strong><small>(teacher's board)</small></div></div>
+      <div class="explain"><strong id="wsHeadline">Making a connection…</strong><p id="wsExplanation">Once connected, the server can send an announcement right away.</p></div>
+      <div class="message" id="wsMessage" aria-live="polite"><span>Latest received message</span><strong>Waiting for an update…</strong></div>
+      <div class="metrics"><div><strong id="wsCount">0</strong><span>Messages pushed</span></div><div><strong id="wsConnects">0</strong><span>Connections opened</span></div><div><strong id="wsDelay">—</strong><span>Last delivery delay</span></div></div>
+      <div class="events"><div class="events-title">📋 What's happening? <span>live activity</span></div><ol id="wsEvents" aria-live="polite"></ol></div>
+      <div class="analogy">📞 <strong>Like a phone call:</strong> stay connected and talk whenever you want.</div>
+    </article>
+  </section>
+  <section class="bottom"><div class="bottom-heading"><h2>What should we notice?</h2><p>Both methods work. The big difference is <em>how</em> they find out about news.</p></div><div class="takeaways"><div><span>🔁</span><strong>AJAX Polling</strong><p>Repeated HTTP checks. Easy to understand, but extra requests can happen when nothing has changed.</p></div><div><span>⚡</span><strong>WebSockets</strong><p>One ongoing, two-way connection. Great when the app needs frequent, immediate updates.</p></div><div><span>🧠</span><strong>Remember!</strong><p><b>Polling = keep asking.</b><br><b>WebSockets = keep talking.</b></p></div></div></section>
+  <footer>Runs on your own computer • Same server • Real HTTP polling + real WebSocket connection • No external cloud account</footer>
+</main>
+<script src="app.js"></script>
+</body></html>

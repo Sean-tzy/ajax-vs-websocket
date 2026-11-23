@@ -1,0 +1,9 @@
+{
+  "name": "ajax-polling-vs-websockets-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive classroom demo comparing AJAX polling and WebSockets",
+  "scripts": {"start": "node server.js"},
+  "dependencies": {"ws": "^8.18.0"},
+  "engines": {"node": ">=18"}
+}
